@@ -24,7 +24,7 @@ This project is a simple Task Management API built with Laravel 10+ that support
 ## Installation
 1. Clone the repository: `git clone https://github.com/codewarrior4/task-api.git`
 2. Navigate to the project directory: `cd your-repo`
-3. Install dependencies: `composer install`
+3. Install dependencies: `composer update`
 4. Set up your `.env` file and database.
 5. Run migrations: `php artisan migrate`
 6. Start the server: `php artisan serve`
@@ -33,5 +33,3 @@ This project is a simple Task Management API built with Laravel 10+ that support
 - Code Quality
 - Functionality
 - Security and scalability considerations
-
-Good luck!
