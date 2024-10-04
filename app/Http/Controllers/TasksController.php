@@ -26,10 +26,13 @@ class TasksController extends Controller
             'status' => 'required|in:completed,pending,in-progress'
         ]);
 
+        // return custom error if validator fails
         if($validator->fails()){
             $data = $validator->errors()->toArray();
             return $this->error('Validation Error', $data, 400);
         } 
+
+        // create task
         $task = Tasks::create($validator->validated());
         return $this->success('Task created successfully', $task->toArray(), 201);
     }
@@ -40,6 +43,7 @@ class TasksController extends Controller
     public function show($task)
     {
         $task = Tasks::find($task);
+        // if task is empty return not found
         if (empty($task)) {
             return $this->error('Task not found', [], 404);
         }
@@ -55,22 +59,27 @@ class TasksController extends Controller
             'status' => 'required|in:completed,pending,in-progress'
         ]);
 
+        // return custom error if validator fails
         if($validator->fails()){
             $data = $validator->errors()->toArray();
             return $this->error('Validation Error', $data, 400);
         } 
 
+        // update task
         $task->update($validator->validated());
         return response()->json(['success' => true, 'data' => $task]);
     }
 
-    public function destroy()
+    public function destroy($task)
     {
-        $task = Tasks::find(request('id'));
+
+        // check if task is present
+        $task = Tasks::find($task);
         if (!$task) {
            return $this->error('Task not found', [], 404);
         }
 
+        // delete task
         $task->delete();
 
         return $this->success('Task deleted successfully', [], 200);
